@@ -1,0 +1,90 @@
+\section{Introduction}
+After the PST meeting Jan 2020 there was a request for some simple instructions for the construction papers.
+This technote addresses the request.
+
+\section{\LaTeX}
+To work locally on a paper it is assumed you have \LaTeX set up.
+Get it from \url{https://www.tug.org/texlive/quickinstall.html}
+
+After installation in a terminal you should be able to find \texttt{latexmk}.
+
+\textbf{Note:} If you had a terminal open when you installed tex then it may not show up in that terminal - open a new one.
+
+\section{The Papers}
+
+All of the construction papers have been created in github repositories already.
+See \url{https://confluence.lsstcorp.org/display/LSSTPO/LSST+Construction+Papers}.
+
+This are all part of the DM technote infrastructure see \url{https://sqr-000.lsst.io/}.
+
+\subsection{Viewing papers}
+All the papers are rendered after each push to github. Use the handle (PSTN-NNN) with ".lsst.io" to get the master
+version. e.g. \url{PSTN-017.lsst.io}.
+
+\textbf{Note:} Usually work in progress is on a branch - you can view all branches bu clicking on "Change Version" or going to the "/v" url e.g. \url{https://pstn-017.lsst.io/v}.  In this case the working version is \url{https://pstn-017.lsst.io/v/DM-23153} which coincidentally relates to the jira ticket \jira{DM-23153}.
+
+\subsection{Getting a paper to work on}
+Use git to \texttt{clone} the paper you want e.g.
+\begin{verbatim}
+ git clone --recurse-submodules https://github.com/lsst-pst/pstn-020
+\end{verbatim}
+
+If you already have a cloned repo check if the lsst-texmf folder exists and is populated, if its empty
+you do not have the sub module get it by executing:
+
+\begin{verbatim}
+  git submodule update --init --recursive
+\end{verbatim}
+
+in the repo directory.
+
+
+Normally we work on branches so at this point it would be good to either checkout an existing branch or
+create your own for your modifications create a branch by executing in the repo:
+\begin{verbatim}
+  git checkout -b /u/USERID/mydraft
+\end{verbatim}
+Where your USERID by convention is your LSST USERID and mydraft can be any identifier.
+
+To see branches use \texttt{git branch -s}.
+
+\subsection{Making changes}
+You may edit the tex files with any editor you like. Some people like texworks, other sublime.
+When you have some changes you need to put them in github. Hopefully you already made a branch (see above).
+You must both commit and push your changes - you may commit as often as you wish (even in flight) but your repo is
+not put on github until you push these are the commands:
+\begin{verbatim}
+  git commit -am "I did stuff "
+  git push
+\end{verbatim}
+
+Make sure your push worked and you did not get any merge conflicts.
+
+\section{Running local build and other tools}
+To build you local file use the Makefile in the repo simply type \texttt{make}.
+
+Because you have the DM texmf there are other tools included as follows.
+The full DM docs are on \url{https://lsst-texmf.lsst.io/}.
+
+\subsection{Authors}
+The author list is generated form the author database \footnote{lsst-texmf/etc/authordb.yaml} - you list the relevant id in \texttt{authors.yaml}.
+If you update authors.yaml run \texttt{make authors.tex}.
+
+\subsection{Bibliography}
+There are several bibliography files in \url{lsst-texmf/texmf/bibtex/bib/} for project documents and ADS papers.
+So you may \texttt{\\cite} project handles like \cite{LSE-61}, \cite{PSTN-017} and ADS refs like \texttt{2019arXiv190713060O}\footnote{listed in refs\_ads.bib} \cite{2019arXiv190713060O}.
+
+Additions to the general bibliography should be done as a Pull Request to \url{https://github.com/lsst/lsst-texmf/}.
+
+See also \url{https://lsst-texmf.lsst.io/lsstdoc.html#bibliographies}.
+
+You may also add refs to local.bib.
+\subsection{Acronyms}
+
+The generateAcronyms script can deal with acronyms or glossaries. It scans your tex and finds items that should be in the
+acronym list and generates acronyms.tex for you.
+You need to run it on its own to see the messages such as undefined terms run it using \texttt{make acronyms.tex}.
+
+See also \url{https://lsst-texmf.lsst.io/lsstdoc.html#acronyms-or-glossaries}.
+
+
