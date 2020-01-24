@@ -1,4 +1,4 @@
-\documentclass[PST,authoryear,toc]{lsstdoc}
+\documentclass[PST,authoryear]{lsstdoc}
 % lsstdoc documentation: https://lsst-texmf.lsst.io/lsstdoc.html
 \input{meta}
 
@@ -28,7 +28,7 @@ William O'Mullane
 % \setDocCurator{The Curator of this Document}
 
 \setDocAbstract{%
-Some notes and simple guidelines for getting started with construction papers. 
+Some notes and simple guidelines for getting started with construction papers.
 }
 
 % Change history defined here.
@@ -42,13 +42,9 @@ Some notes and simple guidelines for getting started with construction papers.
 
 \begin{document}
 
-% Create the title page.
-\maketitle
-% Frequently for a technote we do not want a title page  uncomment this to remove the title page and changelog.
-% use \mkshorttitle to remove the extra pages
+\mkshorttitle
 
-% ADD CONTENT HERE
-% You can also use the \input command to include several content files.
+\input{body}
 
 \appendix
 % Include all the relevant bib files.
